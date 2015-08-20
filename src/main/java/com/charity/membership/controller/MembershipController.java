@@ -9,9 +9,9 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -29,16 +29,20 @@ public class MembershipController {
 	
 	private List<Condition> conditions;
 	
+	@RequestMapping("/showListMembers")
+	public String showListMembers(){
+		return "membership/memberList";
+	}
+	
 	@RequestMapping("/listMembers")
-	public String listMembers(Model model, Pager pager){
+	@ResponseBody
+	public Map listMembers(@RequestBody Pager pager){
 		if(conditions==null){
 			conditions  = new ArrayList<Condition>();
 		}
 		
-		Map memberMap = membershipService.queryMember(conditions, pager);
-		model.addAttribute("memberMap", memberMap);
-		
-		return "membership/memberList";
+		Map memberMap = membershipService.queryMember(conditions, pager);		
+		return memberMap;
 	}
 	
 	@RequestMapping(value="/addMember")

@@ -33,6 +33,7 @@ public class Membership implements java.io.Serializable {
 	private String isMember;
 	private String address;
 	private String company;
+	private Date modifyDate;
 
 	public Membership() {
 	}
@@ -166,6 +167,16 @@ public class Membership implements java.io.Serializable {
 
 	public void setCompany(String company) {
 		this.company = company;
+	}
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "modiry_date", length = 20)
+	public Date getModifyDate() {
+		return modifyDate;
+	}
+
+	public void setModifyDate(Date modifyDate) {
+		this.modifyDate = modifyDate;
 	}
 
 }

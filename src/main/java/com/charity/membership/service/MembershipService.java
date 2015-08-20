@@ -33,7 +33,8 @@ public class MembershipService extends BaseService<Membership> implements
 	public Map queryMember(List<Condition> conditions, Pager pager) {
 		QueryHQLParser p = new QueryHQLParser(new Membership(), conditions);
         int count = baseDAO.count("select count(*) " + p.getHql(), p.getValues());
-        pager = new Pager(pager == null ? 1 : pager.getNum(),20  ,count);
+        pager = new Pager(pager == null ? 1 : pager.getNum(),10  ,count);
+        String hqlOrder = p.getHql() + " order by modifyDate ";
         List dataList = this.pagedList(p.getHql(), pager.getStartRow(), pager.getSize(), p.getValues());
         return PagerUtil.dataFormat(pager, dataList);
 	}

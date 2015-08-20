@@ -34,7 +34,7 @@
 		  <input type="text" ng-model="yourname1" placeholder="121">Hello {{ yourname1 }}!
 		</div>
 	    <div class="panel panel-default" id="divMain" ng-controller="changeLink"></div> -->
-		<div ng-include="userShowTemplateUrl"></div>
+		<div id="divMain" ng-include="userShowTemplateUrl"></div>
 		
 	  </div><!-- /.container-fluid -->
 	</nav>

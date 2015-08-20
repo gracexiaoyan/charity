@@ -20,7 +20,7 @@
 		</div>
 	</div>
 	<p>
-	<button type="button" class="btn btn-primary " margin-top="10px" data-toggle="modal" ng-click="newUser()">新增会员</button>
+	<button type="button" class="btn btn-primary " margin-top="10px" data-toggle="modal" ng-click="newMember()">新增会员</button>
 	<nav class="navbar-right"></nav>
   <!-- Table -->
   <table class="table table-striped" height="90%">
@@ -30,9 +30,20 @@
 	    <th>电话</th>
 	    <th>手机</th>
 	    <th>卡号</th>
+	    <th>单位</th>
 	    <th>操作</th>
     </tr>
-    <c:forEach var="user" items="${memberMap.rows}">
+    <tr ng-repeat="user in userList">
+	    <td>{{ user.name }}</td>
+	    <td>{{ user.sex }}</td>
+	    <td>{{ user.phone }}</td>
+	    <td>{{ user.cellphone }}</td>
+	    <td>{{ user.cardId }}</td>
+	    <td>{{ user.company }}</td>
+	    <td><a href="javascript:" ng-click="getMember( user.id )">修改</a> &nbsp; 
+	    	<a href="javascript:" ng-click="deleteMember(user.id)" >删除</a></td>
+  	</tr>
+    <!--<c:forEach var="user" items="${memberMap.rows}">
     <tr >
 	    <td>${user.name}</td>
 	    <td>${user.sex}</td>
@@ -42,12 +53,12 @@
 	    <td><a href="javascript:" ng-click="updateUser('${user.id}')">修改</a> &nbsp; 
 	    	<a href="javascript:" ng-click="deleteUser('${user.id}')" >删除</a></td>
    </tr>
-   </c:forEach>
+   </c:forEach>-->
   </table>
   <table class="table table-striped" height="90%"  style="margin-top:10px">
     <tr >
-    	<td><nav ><ul id="easyuiPager"></ul></nav></td>
-	    <td align="right"  style="vertical-align:middle">共 【${memberMap.pager.count}】 页      &nbsp;&nbsp;&nbsp;&nbsp; 共【${memberMap.total}】条数据</td>
+    	<td><nav ><ul id="memberPager"></ul></nav></td>
+	    <td align="right"  style="vertical-align:middle">共 【{{totalPages}}】 页      &nbsp;&nbsp;&nbsp;&nbsp; 共【{{total}}】条数据</td>
    </tr>
   </table>
 </div>
@@ -98,55 +109,17 @@
       </div></form>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">关&nbsp;&nbsp;&nbsp;&nbsp;闭</button>
-        <button type="submit" class="btn btn-primary" id="submitForm">保&nbsp;&nbsp;&nbsp;&nbsp;存</button>
+        <button type="submit" class="btn btn-primary" id="submitForm" ng-click="updateMember()">保&nbsp;&nbsp;&nbsp;&nbsp;存</button>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 
-<script type='text/javascript'>
-        var options = {
-        	bootstrapMajorVersion:3,
-            currentPage: '${memberMap.pager.num}',
-            numberOfPages: 20,
-            totalPages: '${memberMap.pager.count}',
-            onPageClicked: function (event, originalEvent, type, page) {
-            	$("#divMain").load("./membership/listMembers",{"num":page});
-                
-            }
-        }
-
-        $('#easyuiPager').bootstrapPaginator(options);
-        
-        $(function() {
-        	//twitter bootstrap script
-        	 $("#submitForm").click(function(){
-        		 if(!$('#name')){
-        			 alert("请填写姓名。");
-        		 }
-        	     $.ajax({
-        	     	type: "POST",
-        	 		url: "./membership/addMember",
-        	 		data: $('#memberForm').serialize(),
-        	 		success: function(msg){
-        	 			if(msg=="success"){
-        	 				alert("保存会员成功。");
-            	        	$("#myModal").modal('hide'); 
-        	 			}
-        	 			else{
-        	 				alert("保存会员失败。");
-        	 			}
-        	        },
-        	 		error: function(jqXHR, textStatus, errorThrown){
-        	 			alert("保存会员失败。");
-        	 		}
-        	       });
-        	 });
-        });
-        
+<script type='text/javascript'>        
         // 加此事件是为了防止在编辑时第二次打开对话框时没有数据的情况
         $('#myModal').on('hidden.bs.modal', function (event) {
         	  //reset form when the modal is hidden
+        	  //this won't work, if use reset, then the form would be blank when the modal opened the seconed time
         	  //$("#memberForm").trigger("reset");
         	$(this).removeData("bs.modal");
         });
