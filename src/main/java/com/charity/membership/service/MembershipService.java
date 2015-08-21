@@ -34,8 +34,8 @@ public class MembershipService extends BaseService<Membership> implements
 		QueryHQLParser p = new QueryHQLParser(new Membership(), conditions);
         int count = baseDAO.count("select count(*) " + p.getHql(), p.getValues());
         pager = new Pager(pager == null ? 1 : pager.getNum(),10  ,count);
-        String hqlOrder = p.getHql() + " order by modifyDate ";
-        List dataList = this.pagedList(p.getHql(), pager.getStartRow(), pager.getSize(), p.getValues());
+        String hqlOrder = p.getHql() + " order by modifyDate desc ";
+        List dataList = this.pagedList(hqlOrder, pager.getStartRow(), pager.getSize(), p.getValues());
         return PagerUtil.dataFormat(pager, dataList);
 	}
 

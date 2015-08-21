@@ -1,53 +1,9 @@
 var mainModule = angular.module('mainModule',[]);
 
 mainModule.controller('changeLink', ['$scope', '$http', function($scope, $http) {
-	$scope.userShowTemplateUrl = "./membership/showListMembers";
-	
-	$scope.initMemberTable = function() {
-    	var req = {
-    			method:'POST',
-    			 url: './membership/listMembers',
-    			 data: {"pager":{"num":1}}
-     		};
-      	$http(req).then(function(response) {	 
-      			$scope.userList = response.data.rows;
-      			$scope.currentPage = response.data.pager.num;
-      			$scope.totalPages = response.data.pager.count;
-      			$scope.total = response.data.total;
-      			
-      			var options = {
-      		        	bootstrapMajorVersion:3,
-      		            currentPage: $scope.currentPage,
-      		            numberOfPages: 10,
-      		            totalPages: $scope.totalPages,
-      		            onPageClicked: function (event, originalEvent, type, page) {
-      		            	//$("#divMain").load("./membership/listMembers",{"num":page});
-      		            	dataQuery = {"pager":{"num":page}};
-      		            	$scope.refreshMemberTable(dataQuery);
-      		            }
-      		        };
-      		    $('#memberPager').bootstrapPaginator(options);
-   	        }, function(response) {
-   	        	alert("获取会员失败。");
-   	      });
-    };    
-    $scope.initMemberTable();
-
-	// change link when click the head
-    $scope.showMember = function () {
-        $("#liEvent").removeClass("active");
-        $("#liMember").addClass("active");
-        //$("#divMain").load("./membership/listMembers");
-        $scope.userShowTemplateUrl = "./membership/showListMembers";
-        dataQuery = {"pager":{"num":1}};
-      	$scope.refreshMemberTable(dataQuery);
-    };
+	$scope.userShowTemplateUrl = "./membership/showListMembers"; 
     
-    $scope.showEvent = function () {
-        $("#liMember").removeClass("active");
-        $("#liEvent").addClass("active");
-    };
-    
+	// refresh member table
     $scope.refreshMemberTable = function(queryData) {
     	var req = {
     			method:'POST',
@@ -79,6 +35,24 @@ mainModule.controller('changeLink', ['$scope', '$http', function($scope, $http) 
    	        	alert("获取会员失败。");
    	      });
     };
+    dataQuery = {"pager":{"num":1}};
+  	$scope.refreshMemberTable(dataQuery);
+
+	// change link when click the head
+    $scope.showMember = function () {
+        $("#liEvent").removeClass("active");
+        $("#liMember").addClass("active");
+        //$("#divMain").load("./membership/listMembers");
+        $scope.userShowTemplateUrl = "./membership/showListMembers";
+        dataQuery = {"pager":{"num":1}};
+      	$scope.refreshMemberTable(dataQuery);
+    };
+    
+    $scope.showEvent = function () {
+        $("#liMember").removeClass("active");
+        $("#liEvent").addClass("active");
+    };    
+    
 }]);
 
 mainModule.controller('memberController', ['$scope', '$http', function($scope, $http) {

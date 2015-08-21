@@ -29,6 +29,7 @@
 	    <th>性别</th>
 	    <th>电话</th>
 	    <th>手机</th>
+	    <th>是否会员</th>
 	    <th>卡号</th>
 	    <th>单位</th>
 	    <th>操作</th>
@@ -38,6 +39,7 @@
 	    <td>{{ user.sex }}</td>
 	    <td>{{ user.phone }}</td>
 	    <td>{{ user.cellphone }}</td>
+	    <td>{{ user.isMember }}</td>
 	    <td>{{ user.cardId }}</td>
 	    <td>{{ user.company }}</td>
 	    <td><a href="javascript:" ng-click="getMember( user.id )">修改</a> &nbsp; 

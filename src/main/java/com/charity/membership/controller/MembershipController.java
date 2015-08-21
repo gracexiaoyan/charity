@@ -27,8 +27,6 @@ public class MembershipController {
 	@Autowired
 	private IMembershipService membershipService;
 	
-	private List<Condition> conditions;
-	
 	@RequestMapping("/showListMembers")
 	public String showListMembers(){
 		return "membership/memberList";
@@ -38,10 +36,8 @@ public class MembershipController {
 	@ResponseBody
 	//public Map listMembers(@RequestBody Pager pager, @RequestBody List<Condition> conditions){
 	public Map listMembers(@RequestBody QueryBean queryBean){
-		if(queryBean.getConditions()==null){
-			conditions  = new ArrayList<Condition>();
-		}
-		else{
+		List<Condition> conditions = new ArrayList<Condition>();
+		if(queryBean.getConditions() != null){
 			conditions  = queryBean.getConditions();
 		}
 		
