@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/taglibs.jsp" %>
-<!-- <html ng-app="mainModule"> -->
+<div ng-controller="memberController">
 
-<div class="panel panel-default" ng-controller="memberController">
+<div class="panel panel-default" >
 	<div class="panel-heading" >
 		<div class="controls controls-row">
 		<div class="input-group">
@@ -77,17 +77,24 @@
 		  <span class="input-group-addon" id="srhName">姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名:</span>
 		  <input type="text" class="form-control" id="name" name="name" ng-model="name">
 		  <span class="input-group-addon" id="srhSex">性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别:</span>
-		  <input type="text" class="form-control" name="sex" ng-model="sex">
+		  <!-- <input type="text" class="form-control" name="sex" ng-model="sex">-->
+		  <div class="form-control">
+			  <label class="radio-inline" style="width:67px"><input type="radio" name="sex" ng-model="sex" value="男">男</label>
+			  <label class="radio-inline" style="width:69px"><input type="radio" name="sex" ng-model="sex" value="女">女</label>
+		  </div>
 		</div>
 		<div class="input-group" style="margin-bottom:10px">
 		  <span class="input-group-addon" id="srhBirthday">出生年月:</span>
 		  <input type="date" class="form-control" name="birthday" ng-model="birthday">
 		  <span class="input-group-addon" id="srhCard">电子邮箱:</span>
-		  <input type="email" class="form-control" name="email" ng-model="email">
+		  <input type="text" class="form-control" name="email" ng-model="email">
 		</div>
 		<div class="input-group" style="margin-bottom:10px">
 		  <span class="input-group-addon" id="srhBirthday">是否会员:</span>
-		  <input type="text" class="form-control" name="isMember" ng-model="isMember">
+		  <div class="form-control">
+			  <label class="radio-inline" style="width:69px"><input type="radio" name="isMember" ng-model="isMember" value="是">是</label>
+			  <label class="radio-inline" style="width:69px"><input type="radio" name="isMember" ng-model="isMember" value="否">否</label>
+		  </div>
 		  <span class="input-group-addon" id="srhCard">卡&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;号:</span>
 		  <input type="text" class="form-control" name="cardId" ng-model="cardId">
 		</div>
@@ -127,4 +134,4 @@
         });
 </script>
 
-<!-- </html> -->
+</div>

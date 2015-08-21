@@ -6,7 +6,7 @@ mainModule.controller('changeLink', ['$scope', '$http', function($scope, $http) 
 	// refresh member table
     $scope.refreshMemberTable = function(queryData) {
     	var req = {
-    			method:'POST',
+    			 method:'POST',
      			 url: './membership/listMembers',
      			 data: queryData
      		};
@@ -30,7 +30,9 @@ mainModule.controller('changeLink', ['$scope', '$http', function($scope, $http) 
     		              	$scope.refreshMemberTable(dataQuery);
     		            }
     		        };
+      			
       			$('#memberPager').bootstrapPaginator(options);
+      			//alert(options.currentPage);
    	        }, function(response) {
    	        	alert("获取会员失败。");
    	      });
@@ -60,6 +62,8 @@ mainModule.controller('memberController', ['$scope', '$http', function($scope, $
     $scope.newMember = function (){
     	$("#memberForm").trigger("reset");
     	$('#myModal').modal();
+    	$scope.sex="男";
+    	$scope.isMember="否";
     };
     
     // show the edit member dialog
