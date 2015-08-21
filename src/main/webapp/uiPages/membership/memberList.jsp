@@ -3,18 +3,18 @@
 <%@ include file="/taglibs.jsp" %>
 <!-- <html ng-app="mainModule"> -->
 
-<div class="panel panel-default">
+<div class="panel panel-default" ng-controller="memberController">
 	<div class="panel-heading" >
 		<div class="controls controls-row">
 		<div class="input-group">
 		  <span class="input-group-addon" id="srhQName">姓&nbsp;&nbsp;&nbsp;&nbsp;名:&nbsp;&nbsp;&nbsp;&nbsp;</span>
-		  <input type="text" class="form-control" aria-describedby="srhQName">
-		  <span class="input-group-addon" id="srhQPhone">电&nbsp;&nbsp;&nbsp;&nbsp;话:&nbsp;&nbsp;&nbsp;&nbsp;</span>
-		  <input type="text" class="form-control" aria-describedby="srhQPhone">
+		  <input type="text" class="form-control" aria-describedby="srhQName" ng-model="qName">
+		  <span class="input-group-addon" id="srhQPhone">手&nbsp;&nbsp;&nbsp;&nbsp;机:&nbsp;&nbsp;&nbsp;&nbsp;</span>
+		  <input type="text" class="form-control" aria-describedby="srhQPhone" ng-model="qPhone">
 		  <span class="input-group-addon" id="srhQCard">卡&nbsp;&nbsp;&nbsp;&nbsp;号:&nbsp;&nbsp;&nbsp;&nbsp;</span>
-		  <input type="text" class="form-control" aria-describedby="srhQCard">
+		  <input type="text" class="form-control" aria-describedby="srhQCard" ng-model="qCard">
 		  <span class="input-group-btn">
-	        <button class="btn btn-primary" type="button" ng-click="showEvent()">查&nbsp;&nbsp;&nbsp;&nbsp;询</button>
+	        <button class="btn btn-primary" type="button" ng-click="queryMember()">查&nbsp;&nbsp;&nbsp;&nbsp;询</button>
 	      </span>
 		</div>
 		</div>

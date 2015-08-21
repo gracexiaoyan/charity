@@ -15,10 +15,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.charity.common.QueryBean;
 import com.charity.membership.bean.Membership;
 import com.charity.membership.service.iface.IMembershipService;
 
-import fi.common.mvc.action.Pager;
 import fi.common.ui.bean.Condition;
 
 @Controller
@@ -36,12 +36,16 @@ public class MembershipController {
 	
 	@RequestMapping("/listMembers")
 	@ResponseBody
-	public Map listMembers(@RequestBody Pager pager){
-		if(conditions==null){
+	//public Map listMembers(@RequestBody Pager pager, @RequestBody List<Condition> conditions){
+	public Map listMembers(@RequestBody QueryBean queryBean){
+		if(queryBean.getConditions()==null){
 			conditions  = new ArrayList<Condition>();
 		}
+		else{
+			conditions  = queryBean.getConditions();
+		}
 		
-		Map memberMap = membershipService.queryMember(conditions, pager);		
+		Map memberMap = membershipService.queryMember(conditions, queryBean.getPager());		
 		return memberMap;
 	}
 	

@@ -7,7 +7,7 @@ mainModule.controller('changeLink', ['$scope', '$http', function($scope, $http) 
     	var req = {
     			method:'POST',
     			 url: './membership/listMembers',
-    			 data: {"num":1}
+    			 data: {"pager":{"num":1}}
      		};
       	$http(req).then(function(response) {	 
       			$scope.userList = response.data.rows;
@@ -22,7 +22,8 @@ mainModule.controller('changeLink', ['$scope', '$http', function($scope, $http) 
       		            totalPages: $scope.totalPages,
       		            onPageClicked: function (event, originalEvent, type, page) {
       		            	//$("#divMain").load("./membership/listMembers",{"num":page});
-      		            	$scope.refreshMemberTable(page);
+      		            	dataQuery = {"pager":{"num":page}};
+      		            	$scope.refreshMemberTable(dataQuery);
       		            }
       		        };
       		    $('#memberPager').bootstrapPaginator(options);
@@ -38,22 +39,20 @@ mainModule.controller('changeLink', ['$scope', '$http', function($scope, $http) 
         $("#liMember").addClass("active");
         //$("#divMain").load("./membership/listMembers");
         $scope.userShowTemplateUrl = "./membership/showListMembers";
-        $scope.refreshMemberTable(1);
+        dataQuery = {"pager":{"num":1}};
+      	$scope.refreshMemberTable(dataQuery);
     };
     
     $scope.showEvent = function () {
         $("#liMember").removeClass("active");
         $("#liEvent").addClass("active");
-        //$scope.refreshMemberTable();
-        //$("#divMain").load("./eventList.jsp");
-        //$scope.userShowTemplateUrl = "./membership/listMembers1";
     };
     
-    $scope.refreshMemberTable = function(page) {
+    $scope.refreshMemberTable = function(queryData) {
     	var req = {
     			method:'POST',
      			 url: './membership/listMembers',
-     			 data: {"num":page}
+     			 data: queryData
      		};
       	$http(req).then(function(response) {
      			//$scope.userShowTemplateUrl = "./membership/listMembers";    			
@@ -65,12 +64,14 @@ mainModule.controller('changeLink', ['$scope', '$http', function($scope, $http) 
       			
       			var options = {
     		        	bootstrapMajorVersion:3,
-    		            currentPage: page,
+    		            currentPage: queryData.pager.num,
     		            numberOfPages: 10,
     		            totalPages: $scope.totalPages,
     		            onPageClicked: function (event, originalEvent, type, page) {
     		            	//$("#divMain").load("./membership/listMembers",{"num":page});
-    		            	$scope.refreshMemberTable(page);
+    		            	//$scope.refreshMemberTable(page);
+    		            	dataQuery = {"pager":{"num":page}};
+    		              	$scope.refreshMemberTable(dataQuery);
     		            }
     		        };
       			$('#memberPager').bootstrapPaginator(options);
@@ -78,8 +79,10 @@ mainModule.controller('changeLink', ['$scope', '$http', function($scope, $http) 
    	        	alert("获取会员失败。");
    	      });
     };
-        
-    // show the new member dialog
+}]);
+
+mainModule.controller('memberController', ['$scope', '$http', function($scope, $http) {
+	// show the new member dialog
     $scope.newMember = function (){
     	$("#memberForm").trigger("reset");
     	$('#myModal').modal();
@@ -124,8 +127,9 @@ mainModule.controller('changeLink', ['$scope', '$http', function($scope, $http) 
 	 		success: function(msg){
 	 			if(msg=="success"){
 	 				alert("保存会员成功。");        	 				
-   	        	$("#myModal").modal('hide');   
-   	        	$scope.refreshMemberTable(1);
+	 				$("#myModal").modal('hide');   
+	 				dataQuery = {"pager":{"num":1}};
+	 		      	$scope.refreshMemberTable(dataQuery);
 	 			}
 	 			else{
 	 				alert("保存会员失败。");
@@ -136,8 +140,8 @@ mainModule.controller('changeLink', ['$scope', '$http', function($scope, $http) 
 	 		}
 	       });
     };
-    
-    // delete member
+	
+	// delete member
     $scope.deleteMember = function (id) {
     	if(!confirm("确定要删除会员吗?")){
     		return;
@@ -151,10 +155,32 @@ mainModule.controller('changeLink', ['$scope', '$http', function($scope, $http) 
     		};
     	$http(req).then(function(response) {			
 	        	alert("删除会员成功。");
-	        	$scope.refreshMemberTable(1);
+	        	dataQuery = {"pager":{"num":1}};
+	          	$scope.refreshMemberTable(dataQuery);
 	        }, function(response) {
 	        	alert("删除会员失败。");
 	      });
+    };
+    
+    $scope.queryMember = function() {
+    	var queryCondition = [];
+    	var dataQuery;
+    	if($scope.qName){
+    		queryCondition.push({"propertyKey" : "name", "propertyExpression" : "like", "propertyValue" : $scope.qName});
+    	}
+    	if($scope.qPhone){
+    		queryCondition.push({"propertyKey" : "cellphone", "propertyExpression" : "like", "propertyValue" : $scope.qPhone});
+    	}
+    	if($scope.qCard){
+    		queryCondition.push({"propertyKey" : "cardId", "propertyExpression" : "like", "propertyValue" : $scope.qCard});
+    	}
+    	if(queryCondition.length > 0){
+    		dataQuery = {"pager":{"num":1}, "conditions":queryCondition};
+    	}
+    	else{
+    		dataQuery = {"pager":{"num":1}};
+    	}
+    	$scope.refreshMemberTable(dataQuery);
     };
 }]);
 
