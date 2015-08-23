@@ -56,6 +56,7 @@
   <table class="table table-striped" height="90%"  style="margin-top:10px">
     <tr >
     	<td><nav ><ul id="eventPager"></ul></nav></td>
+    	<td align="right"  style="vertical-align:middle"><font color="red">总金额 【{{amount}}】元</font>    </td>
 	    <td align="right"  style="vertical-align:middle">共 【{{totalPages}}】 页      &nbsp;&nbsp;&nbsp;&nbsp; 共【{{total}}】条数据</td>
    </tr>
   </table>

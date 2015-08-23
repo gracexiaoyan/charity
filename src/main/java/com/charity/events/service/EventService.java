@@ -11,6 +11,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import com.charity.events.bean.EventInfo;
+import com.charity.events.dao.EventsDao;
 import com.charity.events.service.iface.IEventService;
 
 import fi.common.easyui.PagerUtil;
@@ -42,7 +43,12 @@ public class EventService extends BaseService<EventInfo> implements IEventServic
         pager = new Pager(pager == null ? 1 : pager.getNum(),10  ,count);
         String hqlOrder = "select e,m " + hql.toString() + " order by e.attendDate desc ";
         List dataList = this.pagedList(hqlOrder, pager.getStartRow(), pager.getSize(), values.toArray());
-        return PagerUtil.dataFormat(pager, dataList);
+        
+        String amountHql = "select sum(e.donate) " + hql.toString();
+        long amount = ((EventsDao)baseDAO).getAmount(amountHql, values.toArray());
+        Map resultMap = PagerUtil.dataFormat(pager, dataList);
+        resultMap.put("amount", amount);
+        return resultMap;
 	}
 
 	private List<Object> concatConditions(StringBuilder hql, List<Condition> conditions){

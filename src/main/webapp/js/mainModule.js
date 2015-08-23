@@ -56,6 +56,7 @@ mainModule.controller('changeLink', ['$scope', '$http', function($scope, $http) 
       			$scope.currentPage = response.data.pager.num;
       			$scope.totalPages = response.data.pager.count;
       			$scope.total = response.data.total;
+      			$scope.amount = response.data.amount;
       			if($scope.totalPages == 0){
       				$scope.currentPage = 1;
       				$scope.totalPages = 1;
