@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ include file="/taglibs.jsp" %>
 <div ng-controller="memberController">
 
 <div class="panel panel-default" >
@@ -113,7 +112,7 @@
 		<div class="input-group" style="margin-bottom:10px">
 		  <span class="input-group-addon" id="srhAddress">备&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;注:</span>
 		  <textarea class="form-control" rows="5" id="note" name="note" ng-model="note"></textarea>
-		  <input type="text" style="display:none" class="form-control" id="id" name="id" ng-model="memberId">
+		  <input type="text" style="display:none" class="form-control" id="id" name="id" ng-model="id">
 		</div>		
       </div></form>
       <div class="modal-footer">

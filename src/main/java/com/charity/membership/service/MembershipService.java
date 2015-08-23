@@ -39,4 +39,10 @@ public class MembershipService extends BaseService<Membership> implements
         return PagerUtil.dataFormat(pager, dataList);
 	}
 
+	public List queryAllMember(List<Condition> conditions) {
+		QueryHQLParser p = new QueryHQLParser(new Membership(), conditions);
+        List dataList = this.dataList(p.getHql(), p.getValues());
+        return dataList;
+	}
+
 }

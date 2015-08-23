@@ -45,6 +45,13 @@ public class MembershipController {
 		return memberMap;
 	}
 	
+	@RequestMapping("/listAllMembers")
+	@ResponseBody
+	public List listAllMembers(@RequestBody List<Condition> conditions){
+		List memberList = membershipService.queryAllMember(conditions);
+		return memberList;
+	}
+	
 	@RequestMapping(value="/addMember")
 	@ResponseBody
 	public String addMember(Membership member){
@@ -78,7 +85,7 @@ public class MembershipController {
 	
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
-	    SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy");
+	    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 	    sdf.setLenient(true);
 	    binder.registerCustomEditor(Date.class, new CustomDateEditor(sdf, true));
 	}

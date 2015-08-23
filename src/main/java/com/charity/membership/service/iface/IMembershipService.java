@@ -12,5 +12,7 @@ import fi.common.ui.bean.Condition;
 public interface IMembershipService extends IBaseService<Membership> {
 	public Map queryMember(List<Condition> conditions, Pager pager);
 	
+	public List queryAllMember(List<Condition> conditions);
+	
 	public Membership getMember(String id) throws Exception;
 }

@@ -2,24 +2,16 @@
 var themeArray = ['gray','black','bootstrap','metro'];
 //选用主题
 var theme = 'default';
-var args=new Array(//getRootPath()+"/plugins/easyui/themes/"+theme+"/easyui.css",
-//		getRootPath()+"/plugins/easyui/themes/icon.css",
-		//getRootPath()+"/css/demo.css",
-//		getRootPath()+"/css/base.css",
-//		getRootPath()+"/css/page.css",
-//		getRootPath()+"/css/ess.css",
-//		getRootPath()+"/plugins/easyui/themes/"+theme+"/tree/css/jquery.treeview.css",
+var args=new Array(
 		getRootPath()+"/plugins/bootstrap/css/bootstrap.min.css",
 		getRootPath()+"/plugins/jquery/jquery-1.11.3.min.js",
-//		getRootPath()+"/js/jquery.i18n.properties.js",
-//		getRootPath()+"/plugins/easyui/jquery.easyui.min.js",
-//		getRootPath()+"/plugins/easyui/locale/easyui-lang-zh_CN.js",
 		getRootPath()+"/plugins/angular/angular.js",
 		getRootPath()+"/plugins/bootstrap/js/bootstrap.min.js",
-		getRootPath()+"/js/mainModule.js",
-		getRootPath()+"/plugins/bootstrap-paginator.min.js");
-//		getRootPath()+"/js/pinyin.js",
-//		getRootPath()+"/js/easyui_validate_extends.js");
+		getRootPath()+"/plugins/bootstrap-paginator.min.js",
+		getRootPath()+"/js/mainModule.js",		
+		getRootPath()+"/js/membership.js",		
+		getRootPath()+"/js/event.js"
+		);
 
 importDoc(args);
 function importDoc(arguments){ 
