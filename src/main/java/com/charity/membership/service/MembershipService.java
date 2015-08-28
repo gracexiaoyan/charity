@@ -51,14 +51,14 @@ public class MembershipService extends BaseService<Membership> implements
 		if(member.getCellphone() != null && !member.getCellphone().equals("")){
 			Condition c = new Condition();
 			c.setPropertyKey("cellphone");
-			c.setPropertyExpression("=");
+			c.setPropertyExpression("like");
 			c.setPropertyValue(member.getCellphone());
 			conditions.add(c);
 		}
 		if(member.getPhone() != null && !member.getPhone().equals("")){
 			Condition c = new Condition();
 			c.setPropertyKey("phone");
-			c.setPropertyExpression("=");
+			c.setPropertyExpression("like");
 			c.setPropertyValue(member.getPhone());
 			conditions.add(c);
 		}
@@ -68,6 +68,9 @@ public class MembershipService extends BaseService<Membership> implements
 			c.setPropertyExpression("=");
 			c.setPropertyValue(member.getEmail());
 			conditions.add(c);
+		}
+		if(conditions.isEmpty()){
+			return false;
 		}
 		List dataList = queryAllMember(conditions);
 		if(dataList != null && dataList.size() > 0){
