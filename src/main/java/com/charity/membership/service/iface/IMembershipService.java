@@ -15,4 +15,6 @@ public interface IMembershipService extends IBaseService<Membership> {
 	public List queryAllMember(List<Condition> conditions);
 	
 	public Membership getMember(String id) throws Exception;
+	
+	public boolean getMemberExist(Membership member);
 }

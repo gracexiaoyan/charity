@@ -57,6 +57,9 @@ public class MembershipController {
 	public String addMember(Membership member){
 		try {
 			if(member.getId().equals("")){
+				if(membershipService.getMemberExist(member)){
+					return "exist";
+				}
 				membershipService.save(member);
 			}
 			else{

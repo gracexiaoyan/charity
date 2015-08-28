@@ -1,5 +1,6 @@
 package com.charity.membership.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -43,6 +44,36 @@ public class MembershipService extends BaseService<Membership> implements
 		QueryHQLParser p = new QueryHQLParser(new Membership(), conditions);
         List dataList = this.dataList(p.getHql(), p.getValues());
         return dataList;
+	}
+
+	public boolean getMemberExist(Membership member) {
+		List<Condition> conditions = new ArrayList<Condition>();
+		if(member.getCellphone() != null && !member.getCellphone().equals("")){
+			Condition c = new Condition();
+			c.setPropertyKey("cellphone");
+			c.setPropertyExpression("=");
+			c.setPropertyValue(member.getCellphone());
+			conditions.add(c);
+		}
+		if(member.getPhone() != null && !member.getPhone().equals("")){
+			Condition c = new Condition();
+			c.setPropertyKey("phone");
+			c.setPropertyExpression("=");
+			c.setPropertyValue(member.getPhone());
+			conditions.add(c);
+		}
+		if(member.getEmail() != null && !member.getEmail().equals("")){
+			Condition c = new Condition();
+			c.setPropertyKey("email");
+			c.setPropertyExpression("=");
+			c.setPropertyValue(member.getEmail());
+			conditions.add(c);
+		}
+		List dataList = queryAllMember(conditions);
+		if(dataList != null && dataList.size() > 0){
+			return true;
+		}
+		return false;
 	}
 
 }

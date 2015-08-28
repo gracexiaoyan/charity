@@ -9,6 +9,8 @@
 		  <span class="input-group-addon" id="srhQName">姓&nbsp;&nbsp;&nbsp;&nbsp;名:&nbsp;&nbsp;&nbsp;&nbsp;</span>
 		  <input type="text" class="form-control" aria-describedby="srhQName" ng-model="qName">
 		  <span class="input-group-addon" id="srhQPhone">手&nbsp;&nbsp;&nbsp;&nbsp;机:&nbsp;&nbsp;&nbsp;&nbsp;</span>
+		  <input type="text" class="form-control" aria-describedby="srhQCellPhone" ng-model="qCellPhone">
+		  <span class="input-group-addon" id="srhQPhone">电&nbsp;&nbsp;&nbsp;&nbsp;话:&nbsp;&nbsp;&nbsp;&nbsp;</span>
 		  <input type="text" class="form-control" aria-describedby="srhQPhone" ng-model="qPhone">
 		  <span class="input-group-addon" id="srhQCard">卡&nbsp;&nbsp;&nbsp;&nbsp;号:&nbsp;&nbsp;&nbsp;&nbsp;</span>
 		  <input type="text" class="form-control" aria-describedby="srhQCard" ng-model="qCard">

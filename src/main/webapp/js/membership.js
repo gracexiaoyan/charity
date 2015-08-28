@@ -4,9 +4,9 @@ mainModule.controller('memberController', ['$scope', '$http', function($scope, $
 	// show the new member dialog
     $scope.newMember = function (){
     	$("#memberForm").trigger("reset");
-    	$('#myModal').modal();
     	$scope.sex="男";
     	$scope.isMember="否";
+    	$('#myModal').modal();    	
     };
     
     // show the edit member dialog
@@ -52,6 +52,9 @@ mainModule.controller('memberController', ['$scope', '$http', function($scope, $
 	 				$("#myModal").modal('hide');   
 	 				$scope.queryMember();
 	 			}
+	 			else if(msg=="exist"){
+	 				alert("该会员已存在。");
+	 			}
 	 			else{
 	 				alert("保存会员失败。");
 	 			}
@@ -88,8 +91,11 @@ mainModule.controller('memberController', ['$scope', '$http', function($scope, $
     	if($scope.qName){
     		queryCondition.push({"propertyKey" : "name", "propertyExpression" : "like", "propertyValue" : $scope.qName});
     	}
+    	if($scope.qCellPhone){
+    		queryCondition.push({"propertyKey" : "cellphone", "propertyExpression" : "like", "propertyValue" : $scope.qCellPhone});
+    	}
     	if($scope.qPhone){
-    		queryCondition.push({"propertyKey" : "cellphone", "propertyExpression" : "like", "propertyValue" : $scope.qPhone});
+    		queryCondition.push({"propertyKey" : "phone", "propertyExpression" : "like", "propertyValue" : $scope.qPhone});
     	}
     	if($scope.qCard){
     		queryCondition.push({"propertyKey" : "cardId", "propertyExpression" : "like", "propertyValue" : $scope.qCard});
