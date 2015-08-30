@@ -61,6 +61,12 @@ public class MembershipService extends BaseService<Membership> implements
 			c.setPropertyExpression("like");
 			c.setPropertyValue(member.getPhone());
 			conditions.add(c);
+			
+			Condition c1 = new Condition();
+			c1.setPropertyKey("name");
+			c1.setPropertyExpression("=");
+			c1.setPropertyValue(member.getName());
+			conditions.add(c1);
 		}
 		if(member.getEmail() != null && !member.getEmail().equals("")){
 			Condition c = new Condition();
